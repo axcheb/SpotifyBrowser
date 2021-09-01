@@ -74,7 +74,9 @@ class AccessTokenProviderImpl @Inject constructor(
             val tokenDto = tokenResponse.body() ?: return null
             pref.edit(true) {
                 putString(ACCESS_TOKEN, tokenDto.accessToken)
-                putString(REFRESH_TOKEN, tokenDto.refreshToken)
+                if (!tokenDto.refreshToken.isNullOrEmpty()) {
+                    putString(REFRESH_TOKEN, tokenDto.refreshToken)
+                }
             }
             return tokenDto.accessToken
         }

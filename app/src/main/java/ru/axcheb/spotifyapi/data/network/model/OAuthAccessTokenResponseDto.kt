@@ -14,5 +14,5 @@ data class OAuthAccessTokenResponseDto(
     /** The time period (in seconds) for which the access token is valid. */
     @SerialName("expires_in") val expiresIn: Int? = null,
     /** A token that can be sent to the Spotify Accounts service in place of an authorization code. (When the access code expires, send a POST request to the Accounts service /api/token endpoint, but use this code in place of an authorization code. A new access token will be returned. A new refresh token might be returned too.) */
-    @SerialName("refresh_token") val refreshToken: String
+    @SerialName("refresh_token") val refreshToken: String? = null
 )
