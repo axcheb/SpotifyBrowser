@@ -19,14 +19,20 @@ abstract class SpotifyPagingSource<Dto : Any, Value : Any>() : PagingSource<Int,
         val pageSize = params.loadSize.coerceAtMost(SpotifyService.DEFAULT_PAGE_SIZE)
         val offset = pageNumber * pageSize
 
-        val response = load(limit = pageSize, offset = offset)
-        return if (response.isSuccessful) {
-            val values = toModel(response.body()!!)
-            val nextPageNumber = if (values.isEmpty()) null else pageNumber + 1
-            val prevPageNumber = if (pageNumber > 1) pageNumber - 1 else null
-            LoadResult.Page(values, prevPageNumber, nextPageNumber)
-        } else {
-            LoadResult.Error(HttpException(response))
+        return try {
+            val response = load(limit = pageSize, offset = offset)
+            if (response.isSuccessful) {
+                val values = toModel(response.body()!!)
+                val nextPageNumber = if (values.isEmpty()) null else pageNumber + 1
+                val prevPageNumber = if (pageNumber > 1) pageNumber - 1 else null
+                LoadResult.Page(values, prevPageNumber, nextPageNumber)
+            } else {
+                LoadResult.Error(HttpException(response))
+            }
+        } catch (e: HttpException) {
+            LoadResult.Error(e)
+        } catch (e: Exception) {
+            LoadResult.Error(e)
         }
     }
 

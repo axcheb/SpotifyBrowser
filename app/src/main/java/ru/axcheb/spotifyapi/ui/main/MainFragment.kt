@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
 import ru.axcheb.spotifyapi.data.AccessTokenProvider
@@ -24,11 +25,11 @@ class MainFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels { viewModelProvider.get() }
 
     private val categoriesAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        CategoriesAdapter(this.requireContext())
+        CategoriesAdapter()
     }
 
     private val newReleasesAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        NewReleasesAdapter(this.requireContext())
+        NewReleasesAdapter()
     }
 
     override fun onCreateView(
@@ -36,6 +37,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding.newReleases.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         return binding.root
     }
 
@@ -47,22 +50,25 @@ class MainFragment : Fragment() {
     }
 
     private fun observeCategories() {
-        binding.categories.adapter = categoriesAdapter.withLoadStateHeaderAndFooter(
-            header = SpotifyLoadStateAdapter(),
-            footer = SpotifyLoadStateAdapter()
-        )
-        this.bindIn(viewModel.categories) {
-            categoriesAdapter.submitData(this.lifecycle, it)
+        binding.categories.adapter = categoriesAdapter
+            .withLoadStateHeaderAndFooter(
+                header = SpotifyLoadStateAdapter(),
+                footer = SpotifyLoadStateAdapter()
+            )
+        viewLifecycleOwner.bindIn(viewModel.categories) {
+            categoriesAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
     private fun observeNewReleases() {
-        binding.newReleases.adapter = newReleasesAdapter.withLoadStateHeaderAndFooter(
-            header = SpotifyLoadStateAdapter(),
-            footer = SpotifyLoadStateAdapter()
-        )
-        this.bindIn(viewModel.newReleases) {
-            newReleasesAdapter.submitData(this.lifecycle, it)
+        binding.newReleases.adapter = newReleasesAdapter
+            .withLoadStateHeaderAndFooter(
+                header = SpotifyLoadStateAdapter(),
+                footer = SpotifyLoadStateAdapter()
+            )
+
+        viewLifecycleOwner.bindIn(viewModel.newReleases) {
+            newReleasesAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
@@ -76,6 +82,8 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.categories.adapter = null
+        binding.newReleases.adapter = null
         _binding = null
     }
 

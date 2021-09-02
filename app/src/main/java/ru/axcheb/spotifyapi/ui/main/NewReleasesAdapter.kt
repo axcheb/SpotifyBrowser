@@ -1,6 +1,5 @@
 package ru.axcheb.spotifyapi.ui.main
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -12,12 +11,11 @@ import coil.load
 import ru.axcheb.spotifyapi.data.model.Album
 import ru.axcheb.spotifyapi.databinding.ItemNewReleasesBinding
 
-class NewReleasesAdapter(context: Context) :
+class NewReleasesAdapter :
     PagingDataAdapter<Album, AlbumViewHolder>(AlbumDiffItemCallback) {
 
-    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         return AlbumViewHolder(ItemNewReleasesBinding.inflate(layoutInflater, parent, false))
     }
 

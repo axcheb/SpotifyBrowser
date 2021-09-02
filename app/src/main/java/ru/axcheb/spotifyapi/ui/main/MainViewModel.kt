@@ -3,7 +3,10 @@ package ru.axcheb.spotifyapi.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -17,16 +20,12 @@ class MainViewModel @Inject constructor(
     private val newReleasesUseCaseProvider: Provider<NewReleasesUseCase>
 ) : ViewModel() {
 
-    private var categoriesPagingSource: PagingSource<*, *>? = null
-    private val categoryPager = Pager(PagingConfig(20, enablePlaceholders = false)) {
-        categoriesPagingSource?.invalidate()
+    private val categoryPager = Pager(PagingConfig(5, enablePlaceholders = false)) {
         val categoriesUseCase = allCategoriesUseCaseProvider.get()
-        categoriesUseCase().also { categoriesPagingSource = it }
+        categoriesUseCase()
     }
 
-    private var newReleasesPagingSource: PagingSource<*, *>? = null
-    private val newReleasesPager = Pager(PagingConfig(20, enablePlaceholders = false)) {
-        newReleasesPagingSource?.invalidate()
+    private val newReleasesPager = Pager(PagingConfig(6, enablePlaceholders = false)) {
         val newReleasesUseCase = newReleasesUseCaseProvider.get()
         newReleasesUseCase()
     }

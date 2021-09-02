@@ -11,6 +11,12 @@ import ru.axcheb.spotifyapi.databinding.ItemLoadingBinding
 
 class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemViewHolder>() {
 
+    override fun getStateViewType(loadState: LoadState) = when (loadState) {
+        is LoadState.NotLoading -> error("Not supported")
+        LoadState.Loading -> PROGRESS
+        is LoadState.Error -> ERROR
+    }
+
     override fun onBindViewHolder(holder: ItemViewHolder, loadState: LoadState) {
         holder.bind(loadState)
     }
@@ -46,6 +52,11 @@ class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemVie
         override fun bind(loadState: LoadState) {
             require(loadState is LoadState.Loading)
         }
+    }
+
+    private companion object {
+        private const val ERROR = 1
+        private const val PROGRESS = 0
     }
 
 }

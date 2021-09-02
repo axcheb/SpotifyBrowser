@@ -3,9 +3,11 @@ package ru.axcheb.spotifyapi.data.network.service
 import androidx.annotation.IntRange
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.axcheb.spotifyapi.data.network.model.CategoriesResponseWrapperDto
 import ru.axcheb.spotifyapi.data.network.model.NewReleasesResponseWrapperDto
+import ru.axcheb.spotifyapi.data.network.model.PlaylistResponseWrapperDto
 
 interface SpotifyService {
 
@@ -23,7 +25,6 @@ interface SpotifyService {
         @Query("offset") offset: Int
     ): Response<CategoriesResponseWrapperDto>
 
-
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
      *
@@ -38,6 +39,18 @@ interface SpotifyService {
         @Query("offset") offset: Int
     ): Response<NewReleasesResponseWrapperDto>
 
+    /**
+     * Get a list of Spotify playlists tagged with a particular category.
+     *
+     * @param limit The maximum number of categories to return. Default: 20. Minimum: 1. Maximum: 50.
+     * @param offset The index of the first item to return. Default: 0 (the first object). Use with limit to get the next set of categories.
+     */
+    @GET("/v1/browse/categories/{category_id}/playlists")
+    suspend fun playlists(
+        @Path("category_id") categoryId: String,
+        @Query("limit") @IntRange(from = 1) limit: Int = 20,
+        @Query("offset") offset: Int
+    ): Response<PlaylistResponseWrapperDto>
 
     companion object {
 

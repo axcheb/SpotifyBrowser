@@ -15,6 +15,6 @@ class NewReleasesPagingSource @Inject constructor(
         spotifyService.newReleases(limit, offset)
 
     override fun toModel(dto: NewReleasesResponseWrapperDto): List<Album> =
-        dto.newReleasesResponseDto.items.map { it.toAlbum() }
+        dto.newReleasesResponse.items.map { it.toAlbum() }
 
 }

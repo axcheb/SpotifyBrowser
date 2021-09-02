@@ -4,8 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NewReleasesResponseDto(
-    @SerialName("items") val items: List<AlbumDto>,
+data class PlaylistResponseDto(
+    @SerialName("items") val items: List<PlaylistDto>,
     @SerialName("href") val href: String? = null,
     @SerialName("limit") val limit: Int? = null,
     @SerialName("offset") val offset: Int? = null,
@@ -15,6 +15,6 @@ data class NewReleasesResponseDto(
 )
 
 @Serializable
-data class NewReleasesResponseWrapperDto(
-    @SerialName("albums") val newReleasesResponse: NewReleasesResponseDto
+data class PlaylistResponseWrapperDto(
+    @SerialName("playlists") val playlistResponse: PlaylistResponseDto
 )
