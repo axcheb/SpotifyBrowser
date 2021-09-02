@@ -21,12 +21,12 @@ class CategoriesAdapter(context: Context) :
         return CategoryViewHolder(ItemCategoryBinding.inflate(layoutInflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) =
         holder.bind(getItem(position))
-    }
 }
 
-class CategoryViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+class CategoryViewHolder(private val binding: ItemCategoryBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: Category?) {
         binding.icon.load(category?.iconUrl) {

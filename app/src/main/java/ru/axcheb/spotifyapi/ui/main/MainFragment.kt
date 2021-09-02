@@ -27,6 +27,10 @@ class MainFragment : Fragment() {
         CategoriesAdapter(this.requireContext())
     }
 
+    private val newReleasesAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        NewReleasesAdapter(this.requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,14 +42,27 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.appComponent?.inject(this)
+        observeCategories()
+        observeNewReleases()
+    }
 
+    private fun observeCategories() {
         binding.categories.adapter = categoriesAdapter.withLoadStateHeaderAndFooter(
-            header = CategoriesLoadStateAdapter(),
-            footer = CategoriesLoadStateAdapter()
+            header = SpotifyLoadStateAdapter(),
+            footer = SpotifyLoadStateAdapter()
         )
-
         this.bindIn(viewModel.categories) {
             categoriesAdapter.submitData(this.lifecycle, it)
+        }
+    }
+
+    private fun observeNewReleases() {
+        binding.newReleases.adapter = newReleasesAdapter.withLoadStateHeaderAndFooter(
+            header = SpotifyLoadStateAdapter(),
+            footer = SpotifyLoadStateAdapter()
+        )
+        this.bindIn(viewModel.newReleases) {
+            newReleasesAdapter.submitData(this.lifecycle, it)
         }
     }
 

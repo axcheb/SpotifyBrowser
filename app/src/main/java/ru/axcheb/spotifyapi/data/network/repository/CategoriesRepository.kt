@@ -1,11 +1,10 @@
-package ru.axcheb.spotifyapi.data
+package ru.axcheb.spotifyapi.data.network.repository
 
 import androidx.paging.PagingSource
 import ru.axcheb.spotifyapi.data.model.Category
-import ru.axcheb.spotifyapi.data.network.CategoriesPagingSource
 import javax.inject.Inject
 
-class SpotifyRepository @Inject constructor(
+class CategoriesRepository @Inject constructor(
     private val categoriesPagingSource: CategoriesPagingSource
 ) {
     fun queryAll(): PagingSource<Int, Category> {

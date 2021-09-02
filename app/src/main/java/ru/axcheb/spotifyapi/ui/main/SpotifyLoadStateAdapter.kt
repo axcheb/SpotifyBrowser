@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.axcheb.spotifyapi.databinding.ItemErrorBinding
 import ru.axcheb.spotifyapi.databinding.ItemLoadingBinding
 
-class CategoriesLoadStateAdapter : LoadStateAdapter<CategoriesLoadStateAdapter.ItemViewHolder>() {
+class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, loadState: LoadState) {
         holder.bind(loadState)
