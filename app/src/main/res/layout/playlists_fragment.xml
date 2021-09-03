@@ -6,7 +6,7 @@
     android:id="@+id/main_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.playlists.PlaylistsFragment">
 
     <!--
     CoordinatorLayout тут из-за Paging 3.
@@ -34,23 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="@string/categories"
-                    android:textAppearance="?textAppearanceHeadline4" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/categories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/category_item" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/new_releases"
+                    android:text="@string/playlists"
                     android:textAppearance="?textAppearanceHeadline4" />
 
             </LinearLayout>
@@ -60,12 +44,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/new_releases"
+        android:id="@+id/playlists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:scrollbars="vertical"
-        tools:listitem="@layout/new_releases_item" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/playlist_item" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

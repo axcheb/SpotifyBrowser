@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.axcheb.spotifyapi.databinding.ItemErrorBinding
-import ru.axcheb.spotifyapi.databinding.ItemLoadingBinding
+import ru.axcheb.spotifyapi.databinding.ErrorItemBinding
+import ru.axcheb.spotifyapi.databinding.LoadingItemBinding
 
 class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemViewHolder>() {
 
@@ -24,10 +24,10 @@ class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemVie
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): ItemViewHolder {
         return when (loadState) {
             LoadState.Loading -> LoadingViewHolder(
-                ItemLoadingBinding.inflate(LayoutInflater.from(parent.context))
+                LoadingItemBinding.inflate(LayoutInflater.from(parent.context))
             )
             is LoadState.Error -> ErrorViewHolder(
-                ItemErrorBinding.inflate(LayoutInflater.from(parent.context))
+                ErrorItemBinding.inflate(LayoutInflater.from(parent.context))
             )
             is LoadState.NotLoading -> error("Not supported")
         }
@@ -37,7 +37,7 @@ class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemVie
         abstract fun bind(loadState: LoadState)
     }
 
-    class ErrorViewHolder internal constructor(private val binding: ItemErrorBinding) :
+    class ErrorViewHolder internal constructor(private val binding: ErrorItemBinding) :
         ItemViewHolder(binding.root) {
 
         override fun bind(loadState: LoadState) {
@@ -46,7 +46,7 @@ class SpotifyLoadStateAdapter : LoadStateAdapter<SpotifyLoadStateAdapter.ItemVie
         }
     }
 
-    class LoadingViewHolder internal constructor(binding: ItemLoadingBinding) :
+    class LoadingViewHolder internal constructor(binding: LoadingItemBinding) :
         ItemViewHolder(binding.root) {
 
         override fun bind(loadState: LoadState) {

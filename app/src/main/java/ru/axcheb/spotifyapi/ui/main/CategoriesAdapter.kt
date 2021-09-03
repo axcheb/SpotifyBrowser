@@ -4,26 +4,27 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Category
-import ru.axcheb.spotifyapi.databinding.ItemCategoryBinding
+import ru.axcheb.spotifyapi.databinding.CategoryItemBinding
 
 class CategoriesAdapter :
     PagingDataAdapter<Category, CategoryViewHolder>(CategoryDiffItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return CategoryViewHolder(ItemCategoryBinding.inflate(layoutInflater, parent, false))
+        return CategoryViewHolder(CategoryItemBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) =
         holder.bind(getItem(position))
 }
 
-class CategoryViewHolder(private val binding: ItemCategoryBinding) :
+class CategoryViewHolder(private val binding: CategoryItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(category: Category?) {
@@ -31,6 +32,13 @@ class CategoryViewHolder(private val binding: ItemCategoryBinding) :
             placeholder(ColorDrawable(Color.TRANSPARENT))
         }
         binding.name.text = category?.name
+        category?.let {
+            binding.root.setOnClickListener {
+                val direction =
+                    MainFragmentDirections.actionMainFragmentToPlaylistsFragment(category.id)
+                binding.root.findNavController().navigate(direction)
+            }
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import dagger.Component
 import ru.axcheb.spotifyapi.ui.auth.AuthFragment
 import ru.axcheb.spotifyapi.ui.main.MainActivity
 import ru.axcheb.spotifyapi.ui.main.MainFragment
+import ru.axcheb.spotifyapi.ui.playlists.PlaylistsFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -15,6 +16,7 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(mainFragment: MainFragment)
     fun inject(authFragment: AuthFragment)
+    fun inject(playlistsFragment: PlaylistsFragment)
 
     @Component.Builder
     interface Builder {

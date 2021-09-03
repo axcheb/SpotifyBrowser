@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Album
-import ru.axcheb.spotifyapi.databinding.ItemNewReleasesBinding
+import ru.axcheb.spotifyapi.databinding.NewReleasesItemBinding
 
 class NewReleasesAdapter :
     PagingDataAdapter<Album, AlbumViewHolder>(AlbumDiffItemCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return AlbumViewHolder(ItemNewReleasesBinding.inflate(layoutInflater, parent, false))
+        return AlbumViewHolder(NewReleasesItemBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) =
@@ -24,7 +24,7 @@ class NewReleasesAdapter :
 
 }
 
-class AlbumViewHolder(private val binding: ItemNewReleasesBinding) :
+class AlbumViewHolder(private val binding: NewReleasesItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(album: Album?) {

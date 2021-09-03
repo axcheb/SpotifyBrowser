@@ -2,4 +2,5 @@
     <string name="app_name">SpotifyAPI</string>
     <string name="new_releases">New releases</string>
     <string name="categories">Categories</string>
+    <string name="playlists">Playlists</string>
 </resources>
