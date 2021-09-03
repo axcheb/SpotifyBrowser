@@ -1,4 +1,4 @@
-package ru.axcheb.spotifyapi.ui.main
+package ru.axcheb.spotifyapi.ui.playlists
 
 import androidx.paging.PagingSource
 import ru.axcheb.spotifyapi.data.model.Playlist

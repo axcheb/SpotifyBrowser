@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import ru.axcheb.spotifyapi.data.model.Playlist
-import ru.axcheb.spotifyapi.ui.main.PlaylistsUseCase
 import javax.inject.Provider
 
 class PlaylistsViewModel constructor(
@@ -34,6 +33,7 @@ class PlaylistsViewModel constructor(
         )
 }
 
+@Suppress("UNCHECKED_CAST")
 class PlaylistsViewModelFactory @AssistedInject constructor(
     @Assisted("categoryId") private val categoryId: String,
     private val playlistsUseCase: Provider<PlaylistsUseCase>

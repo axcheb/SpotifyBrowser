@@ -7,6 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.axcheb.spotifyapi.data.network.model.CategoriesResponseWrapperDto
 import ru.axcheb.spotifyapi.data.network.model.NewReleasesResponseWrapperDto
+import ru.axcheb.spotifyapi.data.network.model.PlaylistDto
 import ru.axcheb.spotifyapi.data.network.model.PlaylistResponseWrapperDto
 
 interface SpotifyService {
@@ -51,6 +52,12 @@ interface SpotifyService {
         @Query("limit") @IntRange(from = 1) limit: Int = 20,
         @Query("offset") offset: Int
     ): Response<PlaylistResponseWrapperDto>
+
+
+    @GET("v1/playlists/{playlist_id}")
+    suspend fun playlist(
+        @Path("playlist_id") playlistId: String
+    ): Response<PlaylistDto>
 
     companion object {
 

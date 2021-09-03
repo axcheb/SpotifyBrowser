@@ -24,7 +24,6 @@ class PlaylistsFragment : Fragment() {
 
     @Inject
     lateinit var factory: PlaylistsViewModelFactory.Factory
-
     private val viewModel: PlaylistsViewModel by viewModels {
         factory.create(
             args.categoryId
@@ -66,7 +65,6 @@ class PlaylistsFragment : Fragment() {
             playlistsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

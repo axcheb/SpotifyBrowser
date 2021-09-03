@@ -4,14 +4,18 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Playlist
 import ru.axcheb.spotifyapi.databinding.PlaylistItemBinding
+import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
 
-class PlaylistsAdapter : PagingDataAdapter<Playlist, PlaylistViewHolder>(PlaylistDiffItemCallback) {
+@Suppress("UNCHECKED_CAST")
+class PlaylistsAdapter :
+    PagingDataAdapter<Playlist, PlaylistViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Playlist>) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,7 +25,6 @@ class PlaylistsAdapter : PagingDataAdapter<Playlist, PlaylistViewHolder>(Playlis
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 }
 
 class PlaylistViewHolder(private val binding: PlaylistItemBinding) :
@@ -33,17 +36,12 @@ class PlaylistViewHolder(private val binding: PlaylistItemBinding) :
         }
         binding.name.text = playlist?.name
         binding.description.text = playlist?.description
+        playlist?.let {
+            binding.root.setOnClickListener {
+                val direction =
+                    PlaylistsFragmentDirections.actionPlaylistsFragmentToPlaylistFragment(playlist.id)
+                it.findNavController().navigate(direction)
+            }
+        }
     }
-
-}
-
-private object PlaylistDiffItemCallback : DiffUtil.ItemCallback<Playlist>() {
-    override fun areItemsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
-        return oldItem == newItem
-    }
-
 }

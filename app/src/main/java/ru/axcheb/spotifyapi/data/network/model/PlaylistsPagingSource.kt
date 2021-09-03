@@ -9,7 +9,6 @@ import ru.axcheb.spotifyapi.data.network.repository.SpotifyPagingSource
 import ru.axcheb.spotifyapi.data.network.service.SpotifyService
 import ru.axcheb.spotifyapi.data.network.toPlaylist
 
-
 class PlaylistsPagingSource @AssistedInject constructor(
     private val spotifyService: SpotifyService,
     @Assisted("categoryId") private val categoryId: String

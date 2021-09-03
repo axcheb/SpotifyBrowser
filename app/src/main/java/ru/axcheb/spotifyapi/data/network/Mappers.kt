@@ -1,11 +1,7 @@
 package ru.axcheb.spotifyapi.data.network
 
-import ru.axcheb.spotifyapi.data.model.Album
-import ru.axcheb.spotifyapi.data.model.Category
-import ru.axcheb.spotifyapi.data.model.Playlist
-import ru.axcheb.spotifyapi.data.network.model.AlbumDto
-import ru.axcheb.spotifyapi.data.network.model.CategoryDto
-import ru.axcheb.spotifyapi.data.network.model.PlaylistDto
+import ru.axcheb.spotifyapi.data.model.*
+import ru.axcheb.spotifyapi.data.network.model.*
 
 internal fun CategoryDto.toCategory(): Category {
     val firstIconDto = this.icons.firstOrNull()
@@ -32,6 +28,22 @@ internal fun PlaylistDto.toPlaylist(): Playlist {
         id = this.id,
         name = this.name,
         description = this.description,
-        iconUrl = firstIconDto?.url
+        iconUrl = firstIconDto?.url,
+        tracks = tracks?.items?.map { it.track.toTrack() } ?: emptyList()
+    )
+}
+
+internal fun ArtistDto.toArtist(): Artist {
+    return Artist(id, name)
+}
+
+internal fun TrackDto.toTrack(): Track {
+    return Track(
+        id = id,
+        name = name,
+        albumName = album.name,
+        albumImage = album.images.firstOrNull()?.url,
+        durationMs = durationMs,
+        artists = artists.map { it.toArtist() },
     )
 }

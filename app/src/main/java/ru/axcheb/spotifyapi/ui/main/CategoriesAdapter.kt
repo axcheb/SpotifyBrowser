@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Category
 import ru.axcheb.spotifyapi.databinding.CategoryItemBinding
+import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
 
+@Suppress("UNCHECKED_CAST")
 class CategoriesAdapter :
-    PagingDataAdapter<Category, CategoryViewHolder>(CategoryDiffItemCallback) {
+    PagingDataAdapter<Category, CategoryViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Category>) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -36,19 +38,9 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
             binding.root.setOnClickListener {
                 val direction =
                     MainFragmentDirections.actionMainFragmentToPlaylistsFragment(category.id)
-                binding.root.findNavController().navigate(direction)
+                it.findNavController().navigate(direction)
             }
         }
     }
 
-}
-
-private object CategoryDiffItemCallback : DiffUtil.ItemCallback<Category>() {
-    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem
-    }
 }

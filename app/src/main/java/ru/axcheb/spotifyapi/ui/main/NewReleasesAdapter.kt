@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Album
 import ru.axcheb.spotifyapi.databinding.NewReleasesItemBinding
+import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
 
+@Suppress("UNCHECKED_CAST")
 class NewReleasesAdapter :
-    PagingDataAdapter<Album, AlbumViewHolder>(AlbumDiffItemCallback) {
+    PagingDataAdapter<Album, AlbumViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Album>) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,18 +34,6 @@ class AlbumViewHolder(private val binding: NewReleasesItemBinding) :
             placeholder(ColorDrawable(Color.TRANSPARENT))
         }
         binding.name.text = album?.name
-    }
-
-}
-
-
-private object AlbumDiffItemCallback : DiffUtil.ItemCallback<Album>() {
-    override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
-        return oldItem == newItem
     }
 
 }

@@ -4,10 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PlaylistDto(
+data class ArtistDto(
     @SerialName("id") val id: String,
     @SerialName("name") val name: String,
-    @SerialName("description") val description: String? = null,
-    @SerialName("images") val images: List<ImageDto>,
-    @SerialName("tracks") val tracks: TrackResponseDto? = null
 )
