@@ -13,11 +13,12 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private val _query = MutableStateFlow("")
-    val query: StateFlow<String> = _query.asStateFlow()
+    private val query: StateFlow<String> = _query.asStateFlow()
 
     private var newPagingSource: PagingSource<*, *>? = null
 
-    val searchResults: StateFlow<PagingData<SearchableEntity>> = query
+    val searchResults: StateFlow<PagingData<SearchableEntity>> = query.filter { it.isNotBlank() }
+        .debounce(1000)
         .map(::newPager)
         .flatMapLatest { it.flow }.cachedIn(viewModelScope)
         .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
