@@ -4,8 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CategoriesResponseDto(
-    @SerialName("items") val items: List<CategoryDto>,
+class ItemsDto<T>(
+    @SerialName("items") val items: List<T> = emptyList(),
     @SerialName("href") val href: String? = null,
     @SerialName("limit") val limit: Int? = null,
     @SerialName("offset") val offset: Int? = null,
@@ -13,11 +13,3 @@ data class CategoriesResponseDto(
     @SerialName("next") val next: String? = null,
     @SerialName("previous") val previous: String? = null,
 )
-
-@Serializable
-data class CategoriesResponseWrapperDto(
-    @SerialName("categories") val categories: CategoriesResponseDto
-)
-
-
-

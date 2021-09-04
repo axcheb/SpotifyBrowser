@@ -1,4 +1,4 @@
-package ru.axcheb.spotifyapi.ui.main
+package ru.axcheb.spotifyapi.ui
 
 import android.view.LayoutInflater
 import android.view.View

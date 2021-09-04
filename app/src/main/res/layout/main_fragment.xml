@@ -31,6 +31,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/categories_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -66,6 +67,6 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:scrollbars="vertical"
-        tools:listitem="@layout/new_releases_item" />
+        tools:listitem="@layout/album_item" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Track
 import ru.axcheb.spotifyapi.databinding.TrackItemBinding
+import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
 @Suppress("UNCHECKED_CAST")
 class TracksAdapter(private val showIcon: Boolean = true) :
@@ -28,9 +28,9 @@ class TracksAdapter(private val showIcon: Boolean = true) :
 }
 
 class TrackViewHolder(private val binding: TrackItemBinding, private val showIcon: Boolean) :
-    RecyclerView.ViewHolder(binding.root) {
+    SearchableViewHolder<Track>(binding) {
 
-    fun bind(track: Track?) {
+    override fun bind(track: Track?) {
         if (track != null) {
             if (!showIcon) {
                 binding.icon.visibility = View.GONE

@@ -36,7 +36,7 @@ internal fun PlaylistDto.toPlaylist(): Playlist {
 }
 
 internal fun ArtistDto.toArtist(): Artist {
-    return Artist(id, name)
+    return Artist(id, name, images.firstOrNull()?.url, type)
 }
 
 internal fun TrackDto.toTrack(): Track {
@@ -49,3 +49,13 @@ internal fun TrackDto.toTrack(): Track {
         artists = artists.map { it.toArtist() },
     )
 }
+
+internal fun SearchResponseDto.toSearchableEntityList(): List<SearchableEntity> =
+    listOf(
+        albums?.items?.map { it.toAlbum() } ?: emptyList(),
+        playlists?.items?.map { it.toPlaylist() } ?: emptyList(),
+        tracks?.items?.map { it.toTrack() } ?: emptyList(),
+        artists?.items?.map { it.toArtist() } ?: emptyList()
+
+    ).flatten()
+

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import ru.axcheb.spotifyapi.data.model.Album
 import ru.axcheb.spotifyapi.data.model.Playlist
-import ru.axcheb.spotifyapi.data.network.model.PlaylistsPagingSource
+import ru.axcheb.spotifyapi.data.model.SearchableEntity
 import ru.axcheb.spotifyapi.data.network.service.SpotifyService
 import ru.axcheb.spotifyapi.data.network.toAlbum
 import ru.axcheb.spotifyapi.data.network.toPlaylist
@@ -17,6 +17,7 @@ import javax.inject.Inject
 class MusicRepository @Inject constructor(
     private val newReleasesPagingSource: NewReleasesPagingSource,
     private val playlistPagingSourceFactory: PlaylistsPagingSource.Factory,
+    private val searchPagingSourceFactory: SearchPagingSource.Factory,
     private val spotifyService: SpotifyService
 ) {
 
@@ -26,6 +27,10 @@ class MusicRepository @Inject constructor(
 
     fun playlists(categoryId: String): PagingSource<Int, Playlist> {
         return playlistPagingSourceFactory.create(categoryId)
+    }
+
+    fun search(query: String): PagingSource<Int, SearchableEntity> {
+        return searchPagingSourceFactory.create(query)
     }
 
     fun playlist(playlistId: String): Flow<Result<Playlist>> {

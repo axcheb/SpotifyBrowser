@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
 import ru.axcheb.spotifyapi.databinding.PlaylistsFragmentBinding
-import ru.axcheb.spotifyapi.ui.main.SpotifyLoadStateAdapter
+import ru.axcheb.spotifyapi.ui.SpotifyLoadStateAdapter
 import javax.inject.Inject
 
 class PlaylistsFragment : Fragment() {

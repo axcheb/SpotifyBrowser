@@ -6,4 +6,6 @@ data class Playlist(
     val description: String? = null,
     val iconUrl: String?,
     val tracks: List<Track> = emptyList()
-) : StrIdAware
+) : SearchableEntity {
+    override fun getType(): Int = SearchableEntity.PLAYLIST
+}

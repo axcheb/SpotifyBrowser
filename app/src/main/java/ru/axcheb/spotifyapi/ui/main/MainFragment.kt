@@ -12,6 +12,7 @@ import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
 import ru.axcheb.spotifyapi.data.AccessTokenProvider
 import ru.axcheb.spotifyapi.databinding.MainFragmentBinding
+import ru.axcheb.spotifyapi.ui.SpotifyLoadStateAdapter
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -48,6 +49,7 @@ class MainFragment : Fragment() {
         activity?.appComponent?.inject(this)
         observeCategories()
         observeNewReleases()
+        setListeners()
     }
 
     private fun observeCategories() {
@@ -70,6 +72,13 @@ class MainFragment : Fragment() {
 
         viewLifecycleOwner.bindIn(viewModel.newReleases) {
             newReleasesAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+    }
+
+    private fun setListeners() {
+        binding.categoriesText.setOnClickListener {
+            it.findNavController()
+                .navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
     }
 

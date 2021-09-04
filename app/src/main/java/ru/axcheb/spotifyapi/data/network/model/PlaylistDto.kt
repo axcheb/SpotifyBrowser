@@ -9,5 +9,5 @@ data class PlaylistDto(
     @SerialName("name") val name: String,
     @SerialName("description") val description: String? = null,
     @SerialName("images") val images: List<ImageDto>,
-    @SerialName("tracks") val tracks: TrackResponseDto? = null
+    @SerialName("tracks") val tracks: ItemsDto<TrackWrapperDto>? = null
 )

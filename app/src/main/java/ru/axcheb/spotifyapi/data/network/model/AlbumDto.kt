@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class AlbumDto(
     @SerialName("id") val id: String,
     @SerialName("album_type") val albumType: String,
-    @SerialName("images") val images: List<ImageDto>,
+    @SerialName("images") val images: List<ImageDto> = emptyList(),
     @SerialName("name") val name: String,
     @SerialName("artists") val artists: List<ArtistDto> = emptyList(),
     @SerialName("tracks") val tracks: AlbumTrackDto? = null

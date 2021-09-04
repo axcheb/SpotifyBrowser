@@ -1,13 +1,12 @@
 package ru.axcheb.spotifyapi.ui.main
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Category
 import ru.axcheb.spotifyapi.databinding.CategoryItemBinding
@@ -31,7 +30,10 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
 
     fun bind(category: Category?) {
         binding.icon.load(category?.iconUrl) {
-            placeholder(ColorDrawable(Color.TRANSPARENT))
+            placeholder(CircularProgressDrawable(binding.icon.context).apply {
+                strokeWidth = 5f
+                centerRadius = 30f
+            })
         }
         binding.name.text = category?.name
         category?.let {

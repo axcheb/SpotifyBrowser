@@ -7,6 +7,10 @@ data class Album(
     val name: String,
     val artists: List<Artist> = emptyList(),
     val tracks: List<Track> = emptyList()
-) : StrIdAware {
+) : SearchableEntity {
+
     fun artistStr(): String = artists.joinToString { it.name }
+
+    override fun getType(): Int = SearchableEntity.ALBUM
+
 }

@@ -9,6 +9,7 @@ import ru.axcheb.spotifyapi.ui.main.MainActivity
 import ru.axcheb.spotifyapi.ui.main.MainFragment
 import ru.axcheb.spotifyapi.ui.playlist.PlaylistFragment
 import ru.axcheb.spotifyapi.ui.playlists.PlaylistsFragment
+import ru.axcheb.spotifyapi.ui.search.SearchFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -21,6 +22,7 @@ interface AppComponent {
     fun inject(playlistsFragment: PlaylistsFragment)
     fun inject(playlistFragment: PlaylistFragment)
     fun inject(albumFragment: AlbumFragment)
+    fun inject(searchFragment: SearchFragment)
 
     @Component.Builder
     interface Builder {

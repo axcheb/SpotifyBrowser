@@ -21,7 +21,7 @@ interface SpotifyService {
     suspend fun categories(
         @Query("limit") @IntRange(from = 1) limit: Int = 20,
         @Query("offset") offset: Int
-    ): Response<CategoriesResponseWrapperDto>
+    ): Response<CategoriesItemsWrapperDto>
 
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
@@ -35,7 +35,7 @@ interface SpotifyService {
     suspend fun newReleases(
         @Query("limit") @IntRange(from = 1) limit: Int = 20,
         @Query("offset") offset: Int
-    ): Response<NewReleasesResponseWrapperDto>
+    ): Response<NewReleasesItemsWrapperDto>
 
     /**
      * Get a list of Spotify playlists tagged with a particular category.
@@ -48,18 +48,36 @@ interface SpotifyService {
         @Path("category_id") categoryId: String,
         @Query("limit") @IntRange(from = 1) limit: Int = 20,
         @Query("offset") offset: Int
-    ): Response<PlaylistResponseWrapperDto>
+    ): Response<PlaylistItemsWrapperDto>
 
 
+    /**
+     * Get a Playlist.
+     */
     @GET("/v1/playlists/{playlist_id}")
     suspend fun playlist(
         @Path("playlist_id") playlistId: String
     ): Response<PlaylistDto>
 
-    @GET("v1/albums/{albumId}")
+    /**
+     * Get an Album.
+     */
+    @GET("/v1/albums/{albumId}")
     suspend fun album(
         @Path("albumId") albumId: String
     ): Response<AlbumDto>
+
+    /**
+     * Search for an Item.
+     * Get Spotify Catalog information about albums, artists, playlists, tracks, shows or episodes that match a keyword string.
+     */
+    @GET("/v1/search")
+    suspend fun search(
+        @Query("query") q: String,
+        @Query("limit") @IntRange(from = 1) limit: Int = 20,
+        @Query("offset") offset: Int,
+        @Query("type") type: String = "album,track,playlist,artist",
+    ): Response<SearchResponseDto>
 
     companion object {
 

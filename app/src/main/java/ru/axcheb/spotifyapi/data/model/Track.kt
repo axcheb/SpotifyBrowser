@@ -7,6 +7,7 @@ data class Track(
     val albumImage: String?,
     val durationMs: Int,
     val artists: List<Artist> = emptyList()
-) : StrIdAware {
+) : SearchableEntity {
     fun artistStr(): String = artists.joinToString { it.name }
+    override fun getType(): Int = SearchableEntity.TRACK
 }

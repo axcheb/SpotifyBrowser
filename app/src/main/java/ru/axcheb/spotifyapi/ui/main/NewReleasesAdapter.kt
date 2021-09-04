@@ -4,14 +4,15 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Album
-import ru.axcheb.spotifyapi.databinding.NewReleasesItemBinding
+import ru.axcheb.spotifyapi.databinding.AlbumItemBinding
 import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
+import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
 @Suppress("UNCHECKED_CAST")
 class NewReleasesAdapter :
@@ -19,7 +20,11 @@ class NewReleasesAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return AlbumViewHolder(NewReleasesItemBinding.inflate(layoutInflater, parent, false))
+        return AlbumViewHolder(
+            AlbumItemBinding.inflate(layoutInflater, parent, false)
+        ) {
+            MainFragmentDirections.actionMainFragmentToAlbumFragment(it)
+        }
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) =
@@ -27,19 +32,20 @@ class NewReleasesAdapter :
 
 }
 
-class AlbumViewHolder(private val binding: NewReleasesItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class AlbumViewHolder(
+    private val binding: AlbumItemBinding,
+    private val directionFn: (id: String) -> NavDirections
+) :
+    SearchableViewHolder<Album>(binding) {
 
-    fun bind(album: Album?) {
+    override fun bind(album: Album?) {
         binding.icon.load(album?.iconUrl) {
             placeholder(ColorDrawable(Color.TRANSPARENT))
         }
         binding.name.text = album?.name
         album?.let {
             binding.root.setOnClickListener {
-                val direction =
-                    MainFragmentDirections.actionMainFragmentToAlbumFragment(album.id)
-                it.findNavController().navigate(direction)
+                it.findNavController().navigate(directionFn(album.id))
             }
         }
     }
