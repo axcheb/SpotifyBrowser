@@ -9,4 +9,11 @@ data class AlbumDto(
     @SerialName("album_type") val albumType: String,
     @SerialName("images") val images: List<ImageDto>,
     @SerialName("name") val name: String,
+    @SerialName("artists") val artists: List<ArtistDto> = emptyList(),
+    @SerialName("tracks") val tracks: AlbumTrackDto? = null
+)
+
+@Serializable
+data class AlbumTrackDto(
+    @SerialName("items") val items: List<TrackDto> = emptyList(),
 )

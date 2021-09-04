@@ -1,5 +1,6 @@
 package ru.axcheb.spotifyapi.ui.auth
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -25,7 +26,7 @@ class AuthFragment : Fragment() {
     private var _binding: AuthFragmentBinding? = null
     private val binding get() = checkNotNull(_binding)
 
-    val uiScope = CoroutineScope(Dispatchers.Main + Job())
+    private val uiScope = CoroutineScope(Dispatchers.Main + Job())
 
     @Inject
     lateinit var accessTokenProvider: AccessTokenProvider
@@ -55,6 +56,7 @@ class AuthFragment : Fragment() {
         activity?.appComponent?.inject(this)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun openAuthorizeWebView() {
         val uniqueState = UUID.randomUUID().toString()
 

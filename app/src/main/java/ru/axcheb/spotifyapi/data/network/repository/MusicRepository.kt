@@ -10,6 +10,7 @@ import ru.axcheb.spotifyapi.data.model.Album
 import ru.axcheb.spotifyapi.data.model.Playlist
 import ru.axcheb.spotifyapi.data.network.model.PlaylistsPagingSource
 import ru.axcheb.spotifyapi.data.network.service.SpotifyService
+import ru.axcheb.spotifyapi.data.network.toAlbum
 import ru.axcheb.spotifyapi.data.network.toPlaylist
 import javax.inject.Inject
 
@@ -34,6 +35,25 @@ class MusicRepository @Inject constructor(
                 if (response.isSuccessful) {
                     val playlistDto = response.body()
                     Result.success(playlistDto!!.toPlaylist())
+                } else {
+                    Result.failure(HttpException(response))
+                }
+            } catch (e: HttpException) {
+                Result.failure(e)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+            emit(x)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun album(albumId: String): Flow<Result<Album>> {
+        return flow {
+            val x = try {
+                val response = spotifyService.album(albumId)
+                if (response.isSuccessful) {
+                    val albumDto = response.body()
+                    Result.success(albumDto!!.toAlbum())
                 } else {
                     Result.failure(HttpException(response))
                 }

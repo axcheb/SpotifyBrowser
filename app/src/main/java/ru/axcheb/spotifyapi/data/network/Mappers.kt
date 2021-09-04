@@ -18,7 +18,9 @@ internal fun AlbumDto.toAlbum(): Album {
         id = this.id,
         albumType = this.albumType,
         name = this.name,
-        iconUrl = firstIconDto?.url
+        iconUrl = firstIconDto?.url,
+        artists = artists.map { it.toArtist() },
+        tracks = tracks?.items?.map { it.toTrack() } ?: emptyList()
     )
 }
 
@@ -41,8 +43,8 @@ internal fun TrackDto.toTrack(): Track {
     return Track(
         id = id,
         name = name,
-        albumName = album.name,
-        albumImage = album.images.firstOrNull()?.url,
+        albumName = album?.name,
+        albumImage = album?.images?.firstOrNull()?.url,
         durationMs = durationMs,
         artists = artists.map { it.toArtist() },
     )

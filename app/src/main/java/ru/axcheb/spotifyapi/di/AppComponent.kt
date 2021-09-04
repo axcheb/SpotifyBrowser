@@ -3,6 +3,7 @@ package ru.axcheb.spotifyapi.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.axcheb.spotifyapi.ui.album.AlbumFragment
 import ru.axcheb.spotifyapi.ui.auth.AuthFragment
 import ru.axcheb.spotifyapi.ui.main.MainActivity
 import ru.axcheb.spotifyapi.ui.main.MainFragment
@@ -19,6 +20,7 @@ interface AppComponent {
     fun inject(authFragment: AuthFragment)
     fun inject(playlistsFragment: PlaylistsFragment)
     fun inject(playlistFragment: PlaylistFragment)
+    fun inject(albumFragment: AlbumFragment)
 
     @Component.Builder
     interface Builder {

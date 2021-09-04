@@ -1,4 +1,4 @@
-package ru.axcheb.spotifyapi.ui.playlist
+package ru.axcheb.spotifyapi.ui.album
 
 import android.content.Context
 import android.graphics.Color
@@ -13,28 +13,28 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
-import ru.axcheb.spotifyapi.databinding.PlaylistFragmentBinding
+import ru.axcheb.spotifyapi.databinding.AlbumFragmentBinding
 import ru.axcheb.spotifyapi.ui.TracksAdapter
 import timber.log.Timber
 import javax.inject.Inject
 
-class PlaylistFragment : Fragment() {
+class AlbumFragment : Fragment() {
 
-    private val args: PlaylistFragmentArgs by navArgs()
+    private val args: AlbumFragmentArgs by navArgs()
 
-    private var _binding: PlaylistFragmentBinding? = null
+    private var _binding: AlbumFragmentBinding? = null
     private val binding get() = checkNotNull(_binding)
 
     @Inject
-    lateinit var factory: PlaylistViewModelFactory.Factory
-    private val viewModel: PlaylistViewModel by viewModels {
+    lateinit var factory: AlbumViewModelFactory.Factory
+    private val viewModel: AlbumViewModel by viewModels {
         factory.create(
-            args.playlistId
+            args.albumId
         )
     }
 
     private val tracksAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        TracksAdapter()
+        TracksAdapter(false)
     }
 
     override fun onAttach(context: Context) {
@@ -46,29 +46,26 @@ class PlaylistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = PlaylistFragmentBinding.inflate(inflater, container, false)
+        _binding = AlbumFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observePlaylist()
-    }
-
-    private fun observePlaylist() {
         binding.tracks.adapter = tracksAdapter
-        viewLifecycleOwner.bindIn(viewModel.playlist) { result ->
-            result.onSuccess { playlist ->
-                tracksAdapter.submitList(playlist.tracks)
-                binding.name.text = playlist.name
-                binding.description.text = playlist.description
-                binding.icon.load(playlist.iconUrl) {
+        viewLifecycleOwner.bindIn(viewModel.album) { result ->
+            result.onSuccess { album ->
+                tracksAdapter.submitList(album.tracks)
+                binding.name.text = album.name
+                binding.artists.text = album.artistStr()
+                binding.icon.load(album.iconUrl) {
                     placeholder(ColorDrawable(Color.TRANSPARENT))
                 }
             }.onFailure {
                 Timber.e(it)
             }
         }
+
     }
 
     override fun onDestroyView() {

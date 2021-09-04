@@ -5,4 +5,8 @@ data class Album(
     val albumType: String,
     val iconUrl: String?,
     val name: String,
-) : StrIdAware
+    val artists: List<Artist> = emptyList(),
+    val tracks: List<Track> = emptyList()
+) : StrIdAware {
+    fun artistStr(): String = artists.joinToString { it.name }
+}

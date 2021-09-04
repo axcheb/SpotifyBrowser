@@ -5,10 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import ru.axcheb.spotifyapi.data.network.model.CategoriesResponseWrapperDto
-import ru.axcheb.spotifyapi.data.network.model.NewReleasesResponseWrapperDto
-import ru.axcheb.spotifyapi.data.network.model.PlaylistDto
-import ru.axcheb.spotifyapi.data.network.model.PlaylistResponseWrapperDto
+import ru.axcheb.spotifyapi.data.network.model.*
 
 interface SpotifyService {
 
@@ -54,10 +51,15 @@ interface SpotifyService {
     ): Response<PlaylistResponseWrapperDto>
 
 
-    @GET("v1/playlists/{playlist_id}")
+    @GET("/v1/playlists/{playlist_id}")
     suspend fun playlist(
         @Path("playlist_id") playlistId: String
     ): Response<PlaylistDto>
+
+    @GET("v1/albums/{albumId}")
+    suspend fun album(
+        @Path("albumId") albumId: String
+    ): Response<AlbumDto>
 
     companion object {
 

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class TrackDto(
     @SerialName("id") val id: String,
     @SerialName("name") val name: String,
-    @SerialName("album") val album: AlbumDto,
+    @SerialName("album") val album: AlbumDto? = null,
     @SerialName("artists") val artists: List<ArtistDto> = emptyList(),
     @SerialName("duration_ms") val durationMs: Int,
 )

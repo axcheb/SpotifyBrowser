@@ -13,8 +13,3 @@ data class TrackResponseDto(
     @SerialName("next") val next: String? = null,
     @SerialName("previous") val previous: String? = null,
 )
-
-@Serializable
-data class TrackResponseWrapperDto(
-    @SerialName("tracks") val tracks: TrackResponseDto
-)

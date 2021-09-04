@@ -1,6 +1,6 @@
 package ru.axcheb.spotifyapi.data.model
 
 data class Artist(
-    val id: String,
+    override val id: String,
     val name: String,
-)
+) : StrIdAware

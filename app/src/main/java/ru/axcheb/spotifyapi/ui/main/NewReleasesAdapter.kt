@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,13 @@ class AlbumViewHolder(private val binding: NewReleasesItemBinding) :
             placeholder(ColorDrawable(Color.TRANSPARENT))
         }
         binding.name.text = album?.name
+        album?.let {
+            binding.root.setOnClickListener {
+                val direction =
+                    MainFragmentDirections.actionMainFragmentToAlbumFragment(album.id)
+                it.findNavController().navigate(direction)
+            }
+        }
     }
 
 }

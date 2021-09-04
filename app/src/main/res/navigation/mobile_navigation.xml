@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_playlistsFragment"
             app:destination="@id/playlistsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -41,6 +44,15 @@
         tools:layout="@layout/playlist_fragment">
         <argument
             android:name="playlistId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="ru.axcheb.spotifyapi.ui.album.AlbumFragment"
+        android:label="album_fragment"
+        tools:layout="@layout/album_fragment">
+        <argument
+            android:name="albumId"
             app:argType="string" />
     </fragment>
 </navigation>
