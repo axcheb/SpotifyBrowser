@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.artemchep.bindin.bindIn
@@ -51,6 +52,11 @@ class AlbumFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeAlbum()
+        setListeners()
+    }
+
+    private fun observeAlbum() {
         binding.tracks.adapter = tracksAdapter
         viewLifecycleOwner.bindIn(viewModel.album) { result ->
             result.onSuccess { album ->
@@ -58,14 +64,19 @@ class AlbumFragment : Fragment() {
                 binding.progress.visibility = View.GONE
 
                 tracksAdapter.submitList(album.tracks)
-                binding.name.text = album.name
-                binding.artists.text = album.artistStr()
+                binding.toolbar.title = album.name
                 binding.icon.load(album.iconUrl) {
                     placeholder(binding.icon.circularPlaceholder())
                 }
             }.onFailure {
                 Timber.e(it)
             }
+        }
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
         }
     }
 

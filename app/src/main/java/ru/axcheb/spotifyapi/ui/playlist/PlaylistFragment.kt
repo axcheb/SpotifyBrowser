@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.artemchep.bindin.bindIn
@@ -52,6 +53,7 @@ class PlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observePlaylist()
+        setListeners()
     }
 
     private fun observePlaylist() {
@@ -62,14 +64,19 @@ class PlaylistFragment : Fragment() {
                 binding.progress.visibility = View.GONE
 
                 tracksAdapter.submitList(playlist.tracks)
-                binding.name.text = playlist.name
-                binding.description.text = playlist.description
+                binding.toolbar.title = playlist.name
                 binding.icon.load(playlist.iconUrl) {
                     placeholder(binding.icon.circularPlaceholder())
                 }
             }.onFailure {
                 Timber.e(it)
             }
+        }
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
         }
     }
 

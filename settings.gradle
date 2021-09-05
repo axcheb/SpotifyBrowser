@@ -6,5 +6,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "SpotifyAPI"
+rootProject.name = "Spotify browser"
 include ':app'

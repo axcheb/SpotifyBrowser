@@ -30,6 +30,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:menu="@menu/search_menu"
+                    app:title="@string/app_name" />
+
                 <TextView
                     android:id="@+id/categories_text"
                     android:layout_width="wrap_content"

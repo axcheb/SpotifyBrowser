@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -70,6 +71,10 @@ class PlaylistsFragment : Fragment() {
     }
 
     private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener { view ->
+            view.findNavController().navigateUp()
+        }
+
         playlistsAdapter.addLoadStateListener { state ->
             with(binding) {
                 playlists.isVisible = state.refresh != LoadState.Loading

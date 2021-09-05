@@ -5,50 +5,38 @@
     android:id="@+id/playlist_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.playlist.PlaylistFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false">
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorOnPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/icon"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="@dimen/header_height"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
-                <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/header_height"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    tools:src="@tools:sample/backgrounds/scenic" />
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?textAppearanceHeadline4"
-                    tools:text="@tools:sample/lorem" />
-
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
-                    tools:text="@tools:sample/lorem" />
-
-            </LinearLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back_24"
+                tools:title="@string/playlists" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,10 +46,10 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:scrollbars="vertical"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/track_item"
-        android:visibility="gone"
         tools:visibility="visible" />
 
     <ProgressBar

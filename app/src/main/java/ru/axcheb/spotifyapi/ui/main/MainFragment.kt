@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artemchep.bindin.bindIn
@@ -78,9 +79,12 @@ class MainFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.categoriesText.setOnClickListener {
-            it.findNavController()
-                .navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
+        binding.toolbar.setOnMenuItemClickListener {
+            if (isAdded) {
+                this.findNavController()
+                    .navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
+            }
+            true
         }
 
         categoriesAdapter.addLoadStateListener { state ->
