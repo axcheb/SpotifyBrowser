@@ -63,15 +63,25 @@ class AuthFragment : Fragment() {
         binding.authWebView.settings.javaScriptEnabled = true
         binding.authWebView.settings.userAgentString = USER_AGENT_STRING
 
-        binding.authWebView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
-            ): Boolean {
-                request?.let { handleRedirectRequest(request, uniqueState) }
-                return super.shouldOverrideUrlLoading(view, request)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            binding.authWebView.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
+                    request?.let { handleRedirectRequest(request.url, uniqueState) }
+                    return super.shouldOverrideUrlLoading(view, request)
+                }
+            }
+        } else {
+            binding.authWebView.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
+                    handleRedirectRequest(Uri.parse(url), uniqueState)
+                    return super.shouldOverrideUrlLoading(view, url)
+                }
             }
         }
+
 
         binding.authWebView.loadUrl(buildAuthUri(uniqueState).toString())
     }
@@ -87,13 +97,13 @@ class AuthFragment : Fragment() {
             .build()
     }
 
-    private fun handleRedirectRequest(request: WebResourceRequest, uniqueState: String) {
-        if (!request.url.toString().startsWith(REDIRECT_URI)) {
+    private fun handleRedirectRequest(url: Uri, uniqueState: String) {
+        if (!url.toString().startsWith(REDIRECT_URI)) {
             return
         }
-        val responseState = request.url.getQueryParameter("state")
+        val responseState = url.getQueryParameter("state")
         if (responseState == uniqueState) {
-            request.url.getQueryParameter("code")?.let {
+            url.getQueryParameter("code")?.let {
                 uiScope.launch(Dispatchers.IO) {
                     accessTokenProvider.receiveToken(it)
                     withContext(Dispatchers.Main) {
