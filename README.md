@@ -2,7 +2,7 @@
 
 Android app that uses Spotify API to show categories, albums, new releases, etc.
 
-Android приложение для для просмотра данных сервиса Spotify с
+Android приложение для просмотра данных сервиса Spotify с
 использованием [API](https://developer.spotify.com/documentation/web-api/reference/).
 
 ## Стек технологий Android приложения
