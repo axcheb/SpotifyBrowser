@@ -1,7 +1,5 @@
 package ru.axcheb.spotifyapi.ui.main
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
@@ -12,6 +10,7 @@ import coil.load
 import ru.axcheb.spotifyapi.data.model.Album
 import ru.axcheb.spotifyapi.databinding.AlbumItemBinding
 import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
+import ru.axcheb.spotifyapi.ui.circularPlaceholder
 import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
 @Suppress("UNCHECKED_CAST")
@@ -40,7 +39,7 @@ class AlbumViewHolder(
 
     override fun bind(album: Album?) {
         binding.icon.load(album?.iconUrl) {
-            placeholder(ColorDrawable(Color.TRANSPARENT))
+            placeholder(binding.icon.circularPlaceholder())
         }
         binding.name.text = album?.name
         album?.let {

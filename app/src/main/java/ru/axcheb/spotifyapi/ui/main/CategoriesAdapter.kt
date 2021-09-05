@@ -6,11 +6,11 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Category
 import ru.axcheb.spotifyapi.databinding.CategoryItemBinding
 import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
+import ru.axcheb.spotifyapi.ui.circularPlaceholder
 
 @Suppress("UNCHECKED_CAST")
 class CategoriesAdapter :
@@ -30,10 +30,7 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
 
     fun bind(category: Category?) {
         binding.icon.load(category?.iconUrl) {
-            placeholder(CircularProgressDrawable(binding.icon.context).apply {
-                strokeWidth = 5f
-                centerRadius = 30f
-            })
+            placeholder(binding.icon.circularPlaceholder())
         }
         binding.name.text = category?.name
         category?.let {

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
@@ -80,6 +82,21 @@ class MainFragment : Fragment() {
             it.findNavController()
                 .navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
+
+        categoriesAdapter.addLoadStateListener { state ->
+            with(binding) {
+                categories.isVisible = state.refresh != LoadState.Loading
+                categoriesProgress.isVisible = state.refresh == LoadState.Loading
+            }
+        }
+
+        newReleasesAdapter.addLoadStateListener { state ->
+            with(binding) {
+                newReleases.isVisible = state.refresh != LoadState.Loading
+                newReleasesProgress.isVisible = state.refresh == LoadState.Loading
+            }
+        }
+
     }
 
     @Inject

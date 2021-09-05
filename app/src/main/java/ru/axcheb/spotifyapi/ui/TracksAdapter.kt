@@ -1,7 +1,5 @@
 package ru.axcheb.spotifyapi.ui
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +35,7 @@ class TrackViewHolder(private val binding: TrackItemBinding, private val showIco
             }
 
             binding.icon.load(track.albumImage) {
-                placeholder(ColorDrawable(Color.TRANSPARENT))
+                placeholder(binding.icon.circularPlaceholder())
             }
             binding.artists.text = track.artistStr()
             binding.name.text = track.name

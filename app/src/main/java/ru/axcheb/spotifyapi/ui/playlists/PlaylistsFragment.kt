@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
@@ -53,6 +55,7 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observePlaylists()
+        setListeners()
     }
 
     private fun observePlaylists() {
@@ -63,6 +66,15 @@ class PlaylistsFragment : Fragment() {
             )
         viewLifecycleOwner.bindIn(viewModel.playlists) {
             playlistsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+    }
+
+    private fun setListeners() {
+        playlistsAdapter.addLoadStateListener { state ->
+            with(binding) {
+                playlists.isVisible = state.refresh != LoadState.Loading
+                progress.isVisible = state.refresh == LoadState.Loading
+            }
         }
     }
 

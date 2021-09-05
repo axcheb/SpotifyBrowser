@@ -1,12 +1,11 @@
 package ru.axcheb.spotifyapi.ui.search
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import coil.load
+import coil.transform.CircleCropTransformation
 import ru.axcheb.spotifyapi.data.model.Artist
 import ru.axcheb.spotifyapi.data.model.SearchableEntity
 import ru.axcheb.spotifyapi.databinding.AlbumItemBinding
@@ -15,6 +14,7 @@ import ru.axcheb.spotifyapi.databinding.PlaylistItemBinding
 import ru.axcheb.spotifyapi.databinding.TrackItemBinding
 import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
 import ru.axcheb.spotifyapi.ui.TrackViewHolder
+import ru.axcheb.spotifyapi.ui.circularPlaceholder
 import ru.axcheb.spotifyapi.ui.main.AlbumViewHolder
 import ru.axcheb.spotifyapi.ui.playlists.PlaylistViewHolder
 
@@ -65,7 +65,8 @@ class SearchResultAdapter :
             binding.name.text = item?.name
             binding.type.text = item?.type
             binding.icon.load(item?.iconUrl) {
-                placeholder(ColorDrawable(Color.TRANSPARENT))
+                placeholder(binding.icon.circularPlaceholder())
+                transformations(CircleCropTransformation())
             }
         }
     }

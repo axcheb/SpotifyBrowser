@@ -1,8 +1,7 @@
 package ru.axcheb.spotifyapi.ui.playlists
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -12,6 +11,7 @@ import coil.load
 import ru.axcheb.spotifyapi.data.model.Playlist
 import ru.axcheb.spotifyapi.databinding.PlaylistItemBinding
 import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
+import ru.axcheb.spotifyapi.ui.circularPlaceholder
 import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
 @Suppress("UNCHECKED_CAST")
@@ -38,10 +38,14 @@ class PlaylistViewHolder(
 
     override fun bind(playlist: Playlist?) {
         binding.icon.load(playlist?.iconUrl) {
-            placeholder(ColorDrawable(Color.TRANSPARENT))
+            placeholder(binding.icon.circularPlaceholder())
         }
         binding.name.text = playlist?.name
         binding.description.text = playlist?.description
+        if (playlist?.description.isNullOrBlank()) {
+            binding.description.visibility = View.GONE
+        }
+
         playlist?.let {
             binding.root.setOnClickListener {
                 it.findNavController().navigate(directionFn(playlist.id))

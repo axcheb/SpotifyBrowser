@@ -1,8 +1,6 @@
 package ru.axcheb.spotifyapi.ui.playlist
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +13,7 @@ import com.artemchep.bindin.bindIn
 import ru.axcheb.spotifyapi.appComponent
 import ru.axcheb.spotifyapi.databinding.PlaylistFragmentBinding
 import ru.axcheb.spotifyapi.ui.TracksAdapter
+import ru.axcheb.spotifyapi.ui.circularPlaceholder
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -59,11 +58,14 @@ class PlaylistFragment : Fragment() {
         binding.tracks.adapter = tracksAdapter
         viewLifecycleOwner.bindIn(viewModel.playlist) { result ->
             result.onSuccess { playlist ->
+                binding.tracks.visibility = View.VISIBLE
+                binding.progress.visibility = View.GONE
+
                 tracksAdapter.submitList(playlist.tracks)
                 binding.name.text = playlist.name
                 binding.description.text = playlist.description
                 binding.icon.load(playlist.iconUrl) {
-                    placeholder(ColorDrawable(Color.TRANSPARENT))
+                    placeholder(binding.icon.circularPlaceholder())
                 }
             }.onFailure {
                 Timber.e(it)
