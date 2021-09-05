@@ -72,6 +72,14 @@ interface SpotifyService {
         @Path("id") artistId: String
     ): Response<ArtistDto>
 
+    /**
+     * Get an Artist's Related Artists
+     */
+    @GET("v1/artists/{id}/related-artists")
+    suspend fun relatedArtists(
+        @Path("id") artistId: String
+    ): Response<ArtistsDto>
+
     @GET("/v1/artists/{id}/top-tracks")
     suspend fun topTracks(
         @Path("id") artistId: String,

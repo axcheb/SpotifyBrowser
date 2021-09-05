@@ -79,12 +79,14 @@ class MusicRepository @Inject constructor(
             val result = try {
                 val artistResp = spotifyService.artist(artistId)
                 val trackRes = spotifyService.topTracks(artistId)
-                if (artistResp.isSuccessful && trackRes.isSuccessful) {
+                val relatedArtistsResp = spotifyService.relatedArtists(artistId)
+                if (artistResp.isSuccessful && trackRes.isSuccessful && relatedArtistsResp.isSuccessful) {
                     val artist = artistResp.body()!!.toArtist()
                     val tracks = trackRes.body()!!.tracks.map { it.toTrack() }
-                    Result.success(artist.copy(tracks = tracks))
+                    val artists = relatedArtistsResp.body()!!.artists.map { it.toArtist() }
+                    Result.success(artist.copy(tracks = tracks, relatedArtists = artists))
                 } else {
-                    Result.failure(HttpException(if (artistResp.isSuccessful) trackRes else artistResp))
+                    Result.failure(HttpException(if (!artistResp.isSuccessful) artistResp else if (!trackRes.isSuccessful) trackRes else relatedArtistsResp))
                 }
             } catch (e: HttpException) {
                 Result.failure(e)

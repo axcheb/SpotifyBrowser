@@ -10,3 +10,8 @@ data class ArtistDto(
     @SerialName("images") val images: List<ImageDto> = emptyList(),
     @SerialName("type") val type: String,
 )
+
+@Serializable
+data class ArtistsDto(
+    @SerialName("artists") val artists: List<ArtistDto> = emptyList(),
+)

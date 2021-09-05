@@ -4,4 +4,6 @@
     <string name="categories">Categories</string>
     <string name="playlists">Playlists</string>
     <string name="search">Search</string>
+    <string name="related_artists">Related Artists</string>
+    <string name="top_tracks">Top tracks</string>
 </resources>

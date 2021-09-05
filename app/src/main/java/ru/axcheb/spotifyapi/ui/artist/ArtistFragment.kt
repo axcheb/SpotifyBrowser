@@ -37,6 +37,10 @@ class ArtistFragment : Fragment() {
         TracksAdapter(false)
     }
 
+    private val relatedArtistAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        RelatedArtistAdapter()
+    }
+
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
         super.onAttach(context)
@@ -58,12 +62,14 @@ class ArtistFragment : Fragment() {
 
     private fun observeArtist() {
         binding.tracks.adapter = tracksAdapter
+        binding.relatedArtists.adapter = relatedArtistAdapter
         viewLifecycleOwner.bindIn(viewModel.artist) { result ->
             result.onSuccess { artist ->
                 binding.tracks.visibility = View.VISIBLE
                 binding.progress.visibility = View.GONE
 
                 tracksAdapter.submitList(artist.tracks)
+                relatedArtistAdapter.submitList(artist.relatedArtists)
                 binding.toolbar.title = artist.name
                 binding.icon.load(artist.iconUrl) {
                     placeholder(binding.icon.circularPlaceholder())
@@ -83,6 +89,7 @@ class ArtistFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding.tracks.adapter = null
+        binding.relatedArtists.adapter = null
         _binding = null
     }
 
