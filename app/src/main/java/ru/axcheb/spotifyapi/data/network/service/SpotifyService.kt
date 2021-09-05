@@ -67,6 +67,17 @@ interface SpotifyService {
         @Path("albumId") albumId: String
     ): Response<AlbumDto>
 
+    @GET("/v1/artists/{id}")
+    suspend fun artist(
+        @Path("id") artistId: String
+    ): Response<ArtistDto>
+
+    @GET("/v1/artists/{id}/top-tracks")
+    suspend fun topTracks(
+        @Path("id") artistId: String,
+        @Query("market") market: String = DEFAULT_MARKET
+    ): Response<TracksListWrapper>
+
     /**
      * Search for an Item.
      * Get Spotify Catalog information about albums, artists, playlists, tracks, shows or episodes that match a keyword string.
@@ -80,9 +91,8 @@ interface SpotifyService {
     ): Response<SearchResponseDto>
 
     companion object {
-
+        const val DEFAULT_MARKET = "RU"
         const val DEFAULT_PAGE_SIZE = 20
-        const val MAX_PAGE_SIZE = 50
     }
 
 }

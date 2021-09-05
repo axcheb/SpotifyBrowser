@@ -7,11 +7,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import ru.axcheb.spotifyapi.data.model.Album
+import ru.axcheb.spotifyapi.data.model.Artist
 import ru.axcheb.spotifyapi.data.model.Playlist
 import ru.axcheb.spotifyapi.data.model.SearchableEntity
 import ru.axcheb.spotifyapi.data.network.service.SpotifyService
 import ru.axcheb.spotifyapi.data.network.toAlbum
+import ru.axcheb.spotifyapi.data.network.toArtist
 import ru.axcheb.spotifyapi.data.network.toPlaylist
+import ru.axcheb.spotifyapi.data.network.toTrack
 import javax.inject.Inject
 
 class MusicRepository @Inject constructor(
@@ -35,7 +38,7 @@ class MusicRepository @Inject constructor(
 
     fun playlist(playlistId: String): Flow<Result<Playlist>> {
         return flow {
-            val x = try {
+            val result = try {
                 val response = spotifyService.playlist(playlistId)
                 if (response.isSuccessful) {
                     val playlistDto = response.body()
@@ -48,13 +51,13 @@ class MusicRepository @Inject constructor(
             } catch (e: Exception) {
                 Result.failure(e)
             }
-            emit(x)
+            emit(result)
         }.flowOn(Dispatchers.IO)
     }
 
     fun album(albumId: String): Flow<Result<Album>> {
         return flow {
-            val x = try {
+            val result = try {
                 val response = spotifyService.album(albumId)
                 if (response.isSuccessful) {
                     val albumDto = response.body()
@@ -67,8 +70,30 @@ class MusicRepository @Inject constructor(
             } catch (e: Exception) {
                 Result.failure(e)
             }
-            emit(x)
+            emit(result)
         }.flowOn(Dispatchers.IO)
     }
+
+    fun artist(artistId: String): Flow<Result<Artist>> {
+        return flow {
+            val result = try {
+                val artistResp = spotifyService.artist(artistId)
+                val trackRes = spotifyService.topTracks(artistId)
+                if (artistResp.isSuccessful && trackRes.isSuccessful) {
+                    val artist = artistResp.body()!!.toArtist()
+                    val tracks = trackRes.body()!!.tracks.map { it.toTrack() }
+                    Result.success(artist.copy(tracks = tracks))
+                } else {
+                    Result.failure(HttpException(if (artistResp.isSuccessful) trackRes else artistResp))
+                }
+            } catch (e: HttpException) {
+                Result.failure(e)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+            emit(result)
+        }
+    }
+
 
 }

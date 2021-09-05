@@ -2,6 +2,7 @@ package ru.axcheb.spotifyapi.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import coil.load
@@ -67,6 +68,14 @@ class SearchResultAdapter :
             binding.icon.load(item?.iconUrl) {
                 placeholder(binding.icon.circularPlaceholder())
                 transformations(CircleCropTransformation())
+            }
+
+            item?.let { artist ->
+                binding.root.setOnClickListener {
+                    it.findNavController().navigate(
+                        SearchFragmentDirections.actionSearchFragmentToArtistFragment(artist.id)
+                    )
+                }
             }
         }
     }

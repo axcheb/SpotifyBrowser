@@ -16,3 +16,8 @@ data class TrackDto(
 data class TrackWrapperDto(
     @SerialName("track") val track: TrackDto
 )
+
+@Serializable
+data class TracksListWrapper(
+    @SerialName("tracks") val tracks: List<TrackDto> = emptyList()
+)

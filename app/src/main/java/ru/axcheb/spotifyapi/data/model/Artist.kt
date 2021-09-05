@@ -4,7 +4,8 @@ data class Artist(
     override val id: String,
     val name: String,
     val iconUrl: String?,
-    val type: String?
+    val type: String?,
+    val tracks: List<Track> = emptyList()
 ) : SearchableEntity {
 
     override fun getType(): Int = SearchableEntity.ARTIST

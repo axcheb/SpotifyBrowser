@@ -69,5 +69,16 @@
         <action
             android:id="@+id/action_searchFragment_to_playlistFragment"
             app:destination="@id/playlistFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="ru.axcheb.spotifyapi.ui.artist.ArtistFragment"
+        android:label="ArtistFragment">
+        <argument
+            android:name="artistId"
+            app:argType="string" />
     </fragment>
 </navigation>
