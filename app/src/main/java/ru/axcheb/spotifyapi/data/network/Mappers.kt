@@ -52,10 +52,9 @@ internal fun TrackDto.toTrack(): Track {
 
 internal fun SearchResponseDto.toSearchableEntityList(): List<SearchableEntity> =
     listOf(
+        artists?.items?.map { it.toArtist() } ?: emptyList(),
+        tracks?.items?.map { it.toTrack() } ?: emptyList(),
         albums?.items?.map { it.toAlbum() } ?: emptyList(),
         playlists?.items?.map { it.toPlaylist() } ?: emptyList(),
-        tracks?.items?.map { it.toTrack() } ?: emptyList(),
-        artists?.items?.map { it.toArtist() } ?: emptyList()
-
     ).flatten()
 
