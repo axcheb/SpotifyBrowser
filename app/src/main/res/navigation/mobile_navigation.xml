@@ -36,6 +36,9 @@
         <argument
             android:name="categoryId"
             app:argType="string" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
         <action
             android:id="@+id/action_playlistsFragment_to_playlistFragment"
             app:destination="@id/playlistFragment" />

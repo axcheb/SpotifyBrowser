@@ -55,6 +55,7 @@ class PlaylistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.title = args.categoryName
         observePlaylists()
         setListeners()
     }

@@ -36,7 +36,10 @@ class CategoryViewHolder(private val binding: CategoryItemBinding) :
         category?.let {
             binding.root.setOnClickListener {
                 val direction =
-                    MainFragmentDirections.actionMainFragmentToPlaylistsFragment(category.id)
+                    MainFragmentDirections.actionMainFragmentToPlaylistsFragment(
+                        category.id,
+                        category.name
+                    )
                 it.findNavController().navigate(direction)
             }
         }
