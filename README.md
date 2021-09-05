@@ -27,7 +27,6 @@ Android приложение для для просмотра данных се�
 
 ## Скриншоты
 
-TODO
 <img src="screenshots/screenshot1.png" width="270"> <img src="screenshots/screenshot2.png" width="270">
 <img src="screenshots/screenshot3.png" width="270"> <img src="screenshots/screenshot4.png" width="270">
 <img src="screenshots/screenshot5.png" width="270"> <img src="screenshots/screenshot6.png" width="270">
