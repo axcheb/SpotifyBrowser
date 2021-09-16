@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Album
 import ru.axcheb.spotifyapi.databinding.AlbumItemBinding
@@ -13,9 +12,8 @@ import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
 import ru.axcheb.spotifyapi.ui.circularPlaceholder
 import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
-@Suppress("UNCHECKED_CAST")
 class NewReleasesAdapter :
-    PagingDataAdapter<Album, AlbumViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Album>) {
+    PagingDataAdapter<Album, AlbumViewHolder>(StrIdAwareDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

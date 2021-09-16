@@ -4,16 +4,14 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Track
 import ru.axcheb.spotifyapi.databinding.TrackItemBinding
 import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
-@Suppress("UNCHECKED_CAST")
 class TracksAdapter(private val showIcon: Boolean = true) :
-    ListAdapter<Track, TrackViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Track>) {
+    ListAdapter<Track, TrackViewHolder>(StrIdAwareDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

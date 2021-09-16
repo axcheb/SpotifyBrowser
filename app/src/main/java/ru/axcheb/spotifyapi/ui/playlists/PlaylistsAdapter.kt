@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Playlist
 import ru.axcheb.spotifyapi.databinding.PlaylistItemBinding
@@ -14,9 +13,8 @@ import ru.axcheb.spotifyapi.ui.StrIdAwareDiffCallback
 import ru.axcheb.spotifyapi.ui.circularPlaceholder
 import ru.axcheb.spotifyapi.ui.search.SearchableViewHolder
 
-@Suppress("UNCHECKED_CAST")
 class PlaylistsAdapter :
-    PagingDataAdapter<Playlist, PlaylistViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Playlist>) {
+    PagingDataAdapter<Playlist, PlaylistViewHolder>(StrIdAwareDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

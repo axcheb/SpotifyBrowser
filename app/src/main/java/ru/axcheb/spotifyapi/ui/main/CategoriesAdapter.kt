@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.axcheb.spotifyapi.data.model.Category
@@ -14,7 +13,7 @@ import ru.axcheb.spotifyapi.ui.circularPlaceholder
 
 @Suppress("UNCHECKED_CAST")
 class CategoriesAdapter :
-    PagingDataAdapter<Category, CategoryViewHolder>(StrIdAwareDiffCallback as DiffUtil.ItemCallback<Category>) {
+    PagingDataAdapter<Category, CategoryViewHolder>(StrIdAwareDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

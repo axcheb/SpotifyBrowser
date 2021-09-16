@@ -3,7 +3,6 @@ package ru.axcheb.spotifyapi.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import ru.axcheb.spotifyapi.data.model.SearchableEntity
 import ru.axcheb.spotifyapi.databinding.AlbumItemBinding
 import ru.axcheb.spotifyapi.databinding.ArtistItemBinding
@@ -18,7 +17,7 @@ import ru.axcheb.spotifyapi.ui.playlists.PlaylistViewHolder
 @Suppress("UNCHECKED_CAST")
 class SearchResultAdapter :
     PagingDataAdapter<SearchableEntity, SearchableViewHolder<SearchableEntity>>(
-        StrIdAwareDiffCallback as DiffUtil.ItemCallback<SearchableEntity>
+        StrIdAwareDiffCallback()
     ) {
 
     override fun getItemViewType(position: Int): Int {
